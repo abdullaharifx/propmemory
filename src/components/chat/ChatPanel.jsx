@@ -54,7 +54,7 @@ export default function ChatPanel({ property }) {
     }
   }
 
-  const missingApiKey = !import.meta.env.VITE_GEMINI_API_KEY
+  const missingApiKey = !import.meta.env.VITE_GROQ_API_KEY
 
   return (
     <div style={{

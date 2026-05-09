@@ -1,18 +1,19 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import Groq from 'groq-sdk'
 import { buildSystemPrompt } from '../prompts/systemPrompt'
 import { buildImportPrompt } from '../prompts/importPrompt'
 import { buildInsightsPrompt } from '../prompts/insightsPrompt'
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY || ''
+const apiKey = import.meta.env.VITE_GROQ_API_KEY || ''
 
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null
+const client = apiKey
+  ? new Groq({ apiKey, dangerouslyAllowBrowser: true })
+  : null
 
-function getModel(maxTokens = 1024) {
-  if (!genAI) throw new Error('Missing VITE_GEMINI_API_KEY — add it to your Vercel environment variables and redeploy.')
-  return genAI.getGenerativeModel({
-    model: 'gemini-1.5-pro',
-    generationConfig: { maxOutputTokens: maxTokens, temperature: 0.3 }
-  })
+const MODEL = 'llama-3.3-70b-versatile'
+
+function getClient() {
+  if (!client) throw new Error('Missing VITE_GROQ_API_KEY — add it to your .env.local and redeploy.')
+  return client
 }
 
 function parseJSON(raw) {
@@ -24,23 +25,33 @@ function parseJSON(raw) {
 }
 
 export async function sendMessage(property, conversationHistory, userMessage) {
-  const systemPrompt = buildSystemPrompt(property)
-  const model = getModel(1024)
+  const messages = [
+    { role: 'system', content: buildSystemPrompt(property) },
+    ...conversationHistory.map(m => ({
+      role: m.role === 'assistant' ? 'assistant' : 'user',
+      content: m.role === 'assistant' ? (m.metadata?.reply || m.content) : m.content,
+    })),
+    { role: 'user', content: userMessage },
+  ]
 
-  const historyText = conversationHistory
-    .filter(m => m.role === 'user' || m.role === 'assistant')
-    .map(m => `${m.role === 'user' ? 'Landlord' : 'PropMemory'}: ${m.content}`)
-    .join('\n\n')
+  const completion = await getClient().chat.completions.create({
+    model: MODEL,
+    messages,
+    max_tokens: 1024,
+    temperature: 0.3,
+  })
 
-  const fullPrompt = `${systemPrompt}\n\n${historyText ? `CONVERSATION SO FAR:\n${historyText}\n\n` : ''}Landlord: ${userMessage}\nPropMemory:`
-
-  const result = await model.generateContent(fullPrompt)
-  return parseJSON(result.response.text())
+  return parseJSON(completion.choices[0].message.content)
 }
 
 export async function importCSV(csvText) {
-  const result = await getModel(2048).generateContent(buildImportPrompt(csvText))
-  const raw = result.response.text()
+  const completion = await getClient().chat.completions.create({
+    model: MODEL,
+    messages: [{ role: 'user', content: buildImportPrompt(csvText) }],
+    max_tokens: 2048,
+    temperature: 0.1,
+  })
+  const raw = completion.choices[0].message.content
   try {
     return JSON.parse(raw.replace(/```json|```/g, '').trim())
   } catch {
@@ -50,9 +61,13 @@ export async function importCSV(csvText) {
 
 export async function getInsights(property) {
   try {
-    const result = await getModel(512).generateContent(buildInsightsPrompt(property))
-    const raw = result.response.text()
-    return JSON.parse(raw.replace(/```json|```/g, '').trim())
+    const completion = await getClient().chat.completions.create({
+      model: MODEL,
+      messages: [{ role: 'user', content: buildInsightsPrompt(property) }],
+      max_tokens: 512,
+      temperature: 0.2,
+    })
+    return parseJSON(completion.choices[0].message.content)
   } catch {
     return { insights: [] }
   }
