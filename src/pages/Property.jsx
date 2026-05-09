@@ -39,8 +39,8 @@ export default function Property() {
 
   useEffect(() => {
     document.title = property
-      ? `PropMemory — ${property.address}`
-      : 'PropMemory — Property'
+      ? `Halabrix — ${property.address}`
+      : 'Halabrix Property Manager'
   }, [property])
 
   if (loading) return <PropertySkeleton properties={properties} />

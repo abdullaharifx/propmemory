@@ -49,7 +49,7 @@ export default function Onboarding() {
           margin: '0 0 12px',
           letterSpacing: '-0.3px',
         }}>
-          Welcome to PropMemory
+          Welcome to Halabrix Property Manager
         </h1>
         <p style={{
           fontSize: '15px',

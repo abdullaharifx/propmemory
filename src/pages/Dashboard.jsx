@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [showImporter, setShowImporter] = useState(false)
   const [userName, setUserName] = useState('')
 
-  useEffect(() => { document.title = 'PropMemory — Dashboard' }, [])
+  useEffect(() => { document.title = 'Halabrix Property Manager — Dashboard' }, [])
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {

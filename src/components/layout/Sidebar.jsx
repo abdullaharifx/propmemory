@@ -1,7 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Building2, Plus, LogOut, Home, X, Upload } from 'lucide-react'
+import { Plus, LogOut, Home, X, Upload } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { PROPERTY_STATUS } from '../../constants'
+import HalabrixLogo from '../ui/HalabrixLogo'
 import toast from 'react-hot-toast'
 
 const statusDot = {
@@ -47,23 +48,7 @@ export default function Sidebar({ properties = [], onAddProperty, onImportCSV, o
         justifyContent: 'space-between',
         flexShrink: 0,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{
-            width: '30px',
-            height: '30px',
-            backgroundColor: 'var(--color-accent)',
-            borderRadius: 'var(--border-radius-sm)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}>
-            <Building2 size={16} color="#fff" />
-          </div>
-          <span style={{ fontSize: '15px', fontWeight: '600', color: 'var(--color-text-primary)' }}>
-            PropMemory
-          </span>
-        </div>
+        <HalabrixLogo size={24} textSize="14px" />
         {onClose && (
           <button
             onClick={onClose}

@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f8f9fa;
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-border-primary: #e5e7eb;
-  --color-border-secondary: #d1d5db;
-  --color-accent: #185FA5;
-  --color-accent-hover: #0C447C;
-  --color-accent-light: #EBF3FB;
-  --color-success: #3B6D11;
-  --color-success-light: #EAF3DE;
-  --color-warning: #854F0B;
-  --color-warning-light: #FAEEDA;
-  --color-danger: #993C1D;
-  --color-danger-light: #FAECE7;
+  --color-background-primary: #111827;
+  --color-background-secondary: #1F2937;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-border-primary: #374151;
+  --color-border-secondary: #4B5563;
+  --color-accent: #8B5CF6;
+  --color-accent-hover: #7C3AED;
+  --color-accent-light: rgba(139, 92, 246, 0.15);
+  --color-success: #34D399;
+  --color-success-light: rgba(52, 211, 153, 0.12);
+  --color-warning: #FBBF24;
+  --color-warning-light: rgba(251, 191, 36, 0.12);
+  --color-danger: #F87171;
+  --color-danger-light: rgba(248, 113, 113, 0.12);
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
@@ -37,7 +37,7 @@ body {
 
 @keyframes skeleton-pulse {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
+  50%       { opacity: 0.3; }
 }
 
 .skeleton {
@@ -46,7 +46,6 @@ body {
   animation: skeleton-pulse 1.6s ease-in-out infinite;
 }
 
-/* Mobile content padding to clear fixed bottom nav */
 .mobile-bottom-pad {
   padding-bottom: 64px;
 }

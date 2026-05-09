@@ -16,12 +16,21 @@ function getClient() {
   return client
 }
 
+// Robustly extract JSON even if the model prefixes it with text
 function parseJSON(raw) {
-  try {
-    return JSON.parse(raw.replace(/```json|```/g, '').trim())
-  } catch {
-    return { reply: raw, context_used: [] }
+  const cleaned = raw.replace(/```json|```/g, '').trim()
+
+  // Try direct parse first
+  try { return JSON.parse(cleaned) } catch {}
+
+  // Extract the first {...} block from mixed text
+  const match = cleaned.match(/\{[\s\S]*\}/)
+  if (match) {
+    try { return JSON.parse(match[0]) } catch {}
   }
+
+  // Last resort — wrap the raw text as a plain reply
+  return { reply: cleaned, context_used: [] }
 }
 
 export async function sendMessage(property, conversationHistory, userMessage) {
@@ -39,6 +48,7 @@ export async function sendMessage(property, conversationHistory, userMessage) {
     messages,
     max_tokens: 1024,
     temperature: 0.3,
+    response_format: { type: 'json_object' }, // forces pure JSON output
   })
 
   return parseJSON(completion.choices[0].message.content)
@@ -50,6 +60,7 @@ export async function importCSV(csvText) {
     messages: [{ role: 'user', content: buildImportPrompt(csvText) }],
     max_tokens: 2048,
     temperature: 0.1,
+    response_format: { type: 'json_object' },
   })
   const raw = completion.choices[0].message.content
   try {
@@ -66,6 +77,7 @@ export async function getInsights(property) {
       messages: [{ role: 'user', content: buildInsightsPrompt(property) }],
       max_tokens: 512,
       temperature: 0.2,
+      response_format: { type: 'json_object' },
     })
     return parseJSON(completion.choices[0].message.content)
   } catch {
