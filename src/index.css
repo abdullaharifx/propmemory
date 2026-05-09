@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8f9fa;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-border-primary: #e5e7eb;
+  --color-border-secondary: #d1d5db;
+  --color-accent: #185FA5;
+  --color-accent-hover: #0C447C;
+  --color-accent-light: #EBF3FB;
+  --color-success: #3B6D11;
+  --color-success-light: #EAF3DE;
+  --color-warning: #854F0B;
+  --color-warning-light: #FAEEDA;
+  --color-danger: #993C1D;
+  --color-danger-light: #FAECE7;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+.skeleton {
+  background-color: var(--color-border-primary);
+  border-radius: var(--border-radius-sm);
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+/* Mobile content padding to clear fixed bottom nav */
+.mobile-bottom-pad {
+  padding-bottom: 64px;
+}
+
+@media (min-width: 768px) {
+  .mobile-bottom-pad {
+    padding-bottom: 0;
+  }
+}

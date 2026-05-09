@@ -1,0 +1,11 @@
+address,unit,tenant_name,email,monthly_rent,tenancy_start,tenancy_end,security_deposit,notice_months,pets,parking,comments
+14 Ashwood Lane,Flat 1,James Whitfield,james.whitfield@email.com,£1250,01/03/2023,28/02/2026,£1250,1,No,No,Long-term tenant — very reliable payer
+22 Birchfield Road,,Sarah Okonkwo,sarah.o@gmail.com,£950,01/06/2023,31/05/2025,£950,1,Yes - small dog,No,Dog approved in tenancy agreement. Lease due May.
+8 Chestnut Avenue,Flat 3,Marcus Webb,marcus.webb@email.co.uk,£1100,15/09/2022,14/09/2024,£2200,2,No,Yes,Parking space 12. Lease expired — needs urgent renewal conversation
+35 Drummond Street,,Priya Sharma,priya.sharma@hotmail.com,£1400,1 Jan 2024,31 Dec 2025,£1400,1,No,No,Professional tenant. Works in finance. Very tidy.
+19 Elmwood Close,Apt B,Tom Fletcher,t.fletcher@outlook.com,£875,01/08/2023,31/07/2025,£1750,1,No,Street only,Quiet tenant — no complaints from neighbours
+6 Fairfield Terrace,,Aisha Noor,,£1350,15/04/2024,14/04/2026,£2700,2,Yes - cat,No,Missing email — pays by standing order. Cat approved.
+44 Greengate Road,Ground Floor,David Chen,david.chen@gmail.com,£1050,01/10/2023,30/09/2025,£1050,1,No,Yes,Corporate let arrangement. Key holder is Mrs Patel next door.
+11 Hawthorn Rise,,,natalie.burns@yahoo.co.uk,£800,01/02/2024,31/01/2026,£800,1,No,No,Tenant name missing from original records — email only
+29 Ivybridge Court,Flat 7,Oliver Marsh,o.marsh@btinternet.com,£1625,01/05/2022,30/04/2025,£3250,3,No,Yes,Premium tenant. Corporate let. Long 3-month notice period agreed.
+55 Jasmine Walk,,Fatima Al-Hassan,fatima.alhassan@gmail.com,£990,01/11/2023,31/10/2025,£990,1,No,No,Recently moved in. First full payment December 2023.
